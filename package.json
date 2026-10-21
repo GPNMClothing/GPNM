@@ -1,0 +1,8 @@
+{
+  "name": "gpnm-official-storefront",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/checkout.test.mjs"
+  }
+}

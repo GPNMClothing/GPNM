@@ -1,30 +1,23 @@
-GPNM OFFICIAL SHOWROOM WEBSITE — CLEAN MINIMAL EDITION
+﻿GPNM OFFICIAL WEBSITE
 
-Features
-- Minimal black, white, and warm-neutral streetwear storefront, responsive on desktop/tablet/mobile
-- Animated announcement marquee with pause/resume and reduced-motion support
-- Product category filters, live search, sorting, and a no-results recovery state
-- Clickable product detail modal with color and size selection
-- Product inquiry details generator with copy-to-clipboard button
-- Messenger/Facebook contact links
-- Keyboard-accessible modal closing, focus return, and basic focus trapping
-- No cart, cart session, checkout, payment processing, or customer database
+Preview the storefront by opening index.html in a modern browser. Product browsing, filters, search, galleries, and the cart run in the browser. The checkout API and order confirmation pages run as Cloudflare Pages Functions in functions/.
 
-IMPORTANT LIMITS
-This is a fully interactive front-end showroom. It does not include a backend, inventory database, real payment flow, order storage, or automated order submission. Messenger links open your page; the customer can copy the generated inquiry text and paste it into the chat.
+Files:
+- index.html: storefront structure and product catalog
+- styles.css: responsive design and animations
+- script.js: navigation, catalog interactions, product details, cart, and checkout request
+- functions/: Cloudflare Pages handlers for metadata, robots.txt, sitemap.xml, checkout, and order details
+- assets/ and models/: campaign and product imagery
+- test/checkout.test.mjs: checkout validation tests
 
-Before publishing
-1. In script.js, replace GPNM_FACEBOOK_PAGE and GPNM_MESSENGER_URL with your real Facebook Page and Messenger URLs.
-2. Confirm product names, prices, sizes, colors, and descriptions. Current catalog items/prices are samples.
-3. Add real photos to assets/products/ and update image paths in index.html/script.js as needed.
-4. Test links and product details on mobile and desktop before publishing.
+Cloudflare Pages setup:
+- Use the repository root as the project directory and set the static output directory to the current folder; no build command is required.
+- Create a KV namespace and bind it as ORDERS.
+- Set TURNSTILE_SECRET_KEY, RESEND_API_KEY, and ADMIN_EMAIL in the Pages environment. ADMIN_EMAIL accepts comma-separated recipients.
+- Set RESEND_FROM to a sender address verified with Resend before production use.
+- The production Turnstile site key in script.js must match the deployed domain and TURNSTILE_SECRET_KEY.
+- Checkout records orders in KV and emails the shop. It does not take online payments; the shop confirms payment and delivery directly.
 
-Preview
-Open index.html in a modern browser. Keep the assets folder, styles.css, and script.js alongside index.html.
+For a static preview, checkout requests cannot create orders. Use Cloudflare Pages local development to exercise Functions and configure the local KV binding and secrets.
 
-
-LATEST UPDATE
-- Added GPNM website favicon/site icon (browser tab and mobile home-screen icon).
-- Updated catalog product prices to ₱750 as requested.
-- Product images should be clicked/tapped to open product details.
-- Replace the Facebook and Messenger placeholder URLs in script.js before publishing.
+Run the built-in Node.js tests with npm test. The project has no runtime dependencies.
