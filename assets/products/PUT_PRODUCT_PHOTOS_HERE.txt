@@ -1,0 +1,1 @@
+Place product images in this folder. Follow ../FACEBOOK_AND_PHOTO_GUIDE.txt for exact filenames and HTML examples.
